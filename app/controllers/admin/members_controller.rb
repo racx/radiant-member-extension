@@ -9,6 +9,8 @@ class Admin::MembersController < ApplicationController
   skip_before_filter :verify_authenticity_token, :only => 'auto_complete_for_member_company'
   auto_complete_for :member, :company
   
+  helper_method :list_params
+  
   def index
     @companies = Member.find_all_group_by_company
     filter_by_params(FILTER_COLUMNS)
@@ -98,7 +100,6 @@ class Admin::MembersController < ApplicationController
   def list_params
     @list_params ||= {}
   end
-  helper_method :list_params
   
   protected
     def filter_by_params(args)
