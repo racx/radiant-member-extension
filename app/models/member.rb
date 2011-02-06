@@ -36,7 +36,7 @@ class Member < ActiveRecord::Base
   def self.members_paginate(params)
     options = {
       :page => params[:page],
-      :per_page => 10,
+      :per_page => 50,
     }
     if SORT_COLUMNS.include?(params[:sort_by]) && %w(asc desc).include?(params[:sort_order])
       options[:order] = "#{params[:sort_by]} #{params[:sort_order]}"
@@ -57,7 +57,7 @@ class Member < ActiveRecord::Base
     members_from_csv = FasterCSV.parse(file, :headers => true)
     
     members_from_csv.each do |m|
-      member = self.new(:name => m[0], :email => m[1], :company => m[2])
+      member = self.new(:name => m[0], :email => m[1], :company => m[2], :password => m[3])
       if member.save
         imported = imported + 1
       else

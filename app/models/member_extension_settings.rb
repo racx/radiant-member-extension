@@ -2,7 +2,7 @@ class MemberExtensionSettings
   
   class MissingSettingError < StandardError; end
 
-  @@soft_keys     = [:login_path, :home_path, :root_path]
+  @@soft_keys     = [:login_path, :home_path, :root_path, :private_site]
   @@hard_keys     = [:logout_path, :sessions_path, :rest_auth_digest_stretches]
   @@required_keys = [:rest_auth_site_key]
   
@@ -14,7 +14,8 @@ class MemberExtensionSettings
     :root_path                  => "members",  # Everything under this path requires member login.
     :logout_path                => "/logout",
     :sessions_path              => "member_sessions",
-    :rest_auth_digest_stretches => 10
+    :rest_auth_digest_stretches => 10,
+    :private_site                => "false"
   }
 
   cattr_accessor :defaults, :hard_keys, :soft_keys, :required_keys, :all_keys
