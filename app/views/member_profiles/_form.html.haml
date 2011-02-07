@@ -1,0 +1,14 @@
+%tr
+  %th
+    %label{:for => "member_password"} Password:
+  %td= f.password_field :password
+%tr
+  %th
+    %label{:for => "member_password_confirmation"} Password again:
+  %td= f.password_field :password_confirmation
+%tr
+  %th &nbsp;
+  %td
+    = f.submit submit_label
+    or
+    = link_to 'Cancel', members_path

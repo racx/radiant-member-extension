@@ -1,0 +1,7 @@
+%h1 Edit Password
+
+%p.note edit your password.
+.member_form
+  - form_for :member, :url => member_profile_path(0), :html => { :method => :put }  do |f|
+    %table.form
+      = render :partial => "form", :locals => {:f => f, :submit_label => "Update"}
