@@ -23,7 +23,7 @@ class Member < ActiveRecord::Base
 
   before_save :encrypt_password
   
-  attr_accessible :email, :name, :password, :password_confirmation, :company
+  attr_accessible :email, :name, :password, :password_confirmation, :company, :sign_in_count, :last_sign_in_at, :last_sign_in_ip
 
 
   %w{name email}.each do |s|
