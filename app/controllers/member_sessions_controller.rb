@@ -37,7 +37,7 @@ class MemberSessionsController < ApplicationController
   protected
   
     def update_tracking(member)
-      member.update_attributes(:sign_in_count=>member.sign_in_count+1, :last_sign_in_at => Time.now.utc, :last_sign_in_ip=>request.remote_ip)      
+      member.update_attributes(:sign_in_count=>member.sign_in_count+1, :last_sign_in_at => Time.now, :last_sign_in_ip=>request.remote_ip)      
     end
   
     def note_failed_login(config = Radiant::Config)

@@ -88,6 +88,19 @@ class Admin::MembersController < ApplicationController
     @not_valid.empty? ? (redirect_to members_path) : (render :action => 'edit_invalid')
   end
   
+  def export_to_csv
+    @members = Member.all
+      members_csv = FasterCSV.generate do |csv|
+        # header row
+        csv << ["Nome", "Email", "Empresa", "Data Acesso", "Total Acessos"]
+        # data rows
+        @members.each do |member|
+          csv <<  [member.name, member.email, member.company, member.last_sign_in_at, member.sign_in_count]
+        end
+      end
+      send_data(members_csv, :type => 'text/csv', :filename => 'relatorio_acessos.csv')    
+  end  
+  
   def edit_invalid
   end
   

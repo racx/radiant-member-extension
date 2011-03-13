@@ -14,6 +14,7 @@ class MemberExtension < Radiant::Extension
         :auto_complete_for_member_company => :any,
         :import => :get,
         :import_from_csv => :post,
+        :export_to_csv => :get,
         :edit_invalid => :get,
         :update_invalid => :post },
       :member => {
