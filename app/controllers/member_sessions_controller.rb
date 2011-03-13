@@ -36,10 +36,6 @@ class MemberSessionsController < ApplicationController
   
   protected
   
-    def update_tracking(member)
-      member.update_attributes(:sign_in_count=>member.sign_in_count+1, :last_sign_in_at => Time.now, :last_sign_in_ip=>request.remote_ip)      
-    end
-  
     def note_failed_login(config = Radiant::Config)
       config["Member.failed_login"].blank? ? flash[:error] = "Couldn't log you in as '#{params[:email]}'." : flash[:error] = config["Member.failed_login"]
       logger.warn "Failed login for '#{params[:email]}' from #{request.remote_ip} at #{Time.now.utc}"

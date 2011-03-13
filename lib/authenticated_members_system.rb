@@ -104,7 +104,7 @@ module AuthenticatedMembersSystem
     #
 
     # Called from #current_user.  First attempt to login by the user id stored in the session.
-    def member_login_from_session
+    def member_login_from_session      
       self.current_member = Member.find_by_id(session[:member_id]) if session[:member_id]
     end
 
@@ -124,6 +124,7 @@ module AuthenticatedMembersSystem
     def member_login_from_cookie
       member = cookies[:member_auth_token] && Member.find_by_remember_token(cookies[:member_auth_token])
       if member && member.remember_token?
+        update_tracking(member)
         self.current_member = member
         handle_remember_member_cookie! false # freshen cookie token (keeping date)
         self.current_member
@@ -185,4 +186,8 @@ module AuthenticatedMembersSystem
         :value   => @current_member.remember_token,
         :expires => @current_member.remember_token_expires_at }
     end
+    
+    def update_tracking(member)
+      member.update_attributes(:sign_in_count=>member.sign_in_count+1, :last_sign_in_at => Time.now, :last_sign_in_ip=>request.remote_ip)      
+    end    
 end
